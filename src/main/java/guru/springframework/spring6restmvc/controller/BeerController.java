@@ -20,7 +20,26 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {
+
     private final BeerService beerService;
+
+    @PatchMapping("/{beerId}")
+    public ResponseEntity updateBeerByPatch(@PathVariable UUID beerId, @RequestBody Beer beer){
+        beerService.patchById(beerId,beer);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteById(@PathVariable UUID id){
+        beerService.deleteById(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{beerId}")
+    public ResponseEntity updatebyId(@PathVariable UUID beerId, @RequestBody Beer beer){
+        beerService.updateBeerById(beerId,beer);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 
     @PostMapping
     //@RequestMapping(method = RequestMethod.POST)
